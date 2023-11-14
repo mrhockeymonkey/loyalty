@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Scan Me</h1>
+
+{{qr | safe }}
+
+
+<p>http://localhost/qr/1234</p>
+{% endblock content %}
