@@ -1025,7 +1025,9 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "image 0.24.7",
+ "log",
  "qrcode",
+ "rand",
  "serde",
  "tera",
 ]
