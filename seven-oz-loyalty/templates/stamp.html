@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h1>Stamp Your Digital Card</h1>
+
+            <div>
+                <form action="/stamp/{{ code }}">
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone_number" name="phone_number" aria-describedby="phone_number_help" pattern="[0-9]{11}">
+                        <div id="phone_number_help" class="form-text">We'll never share your phone number with anyone else.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" formmethod="post">Stamp</button>
+                </form>
+<!--                <form action="/stamp/{{ code }}">-->
+<!--                    <label for="phone_number">Phone Number:</label><br>-->
+<!--                    <input type="text" id="phone_number" name="phone_number" value=""><br>-->
+<!--                    <input type="submit" value="Submit" formmethod="post">-->
+<!--                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

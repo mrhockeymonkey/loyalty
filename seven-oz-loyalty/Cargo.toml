@@ -1,0 +1,15 @@
+[package]
+name = "seven-oz-loyalty"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.3.1"
+shuttle-actix-web = "0.33.0"
+shuttle-runtime = "0.33.0"
+tokio = "1.26.0"
+qrcode = "0.12.0"
+tera = "1.19.1"
+serde = { version = "1.0.192", features = ["derive"] }
+rand = "0.8.5"
+log = "0.4.20"
