@@ -1,0 +1,19 @@
+[package]
+name = "seven-oz-loyalty"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.3.1"
+actix-files = "0.6.2"
+actix-cors = "0.7.0"
+
+shuttle-actix-web = "0.41.0"
+shuttle-runtime = "0.41.0"
+tokio = "1.34.0"
+serde = { version = "1.0.192", features = ["derive"] }
+log = "0.4.20"
+shuttle-shared-db = { version = "0.41.0", features = ["mongodb"] }
+mongodb = "2.7.1"
+loyalty-core = {path = "../loyalty-core"}
+thiserror = "1.0.57"

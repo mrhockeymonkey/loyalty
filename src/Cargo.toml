@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "loyalty-core",
+    "seven-oz-client",
+    "seven-oz-loyalty"
+]

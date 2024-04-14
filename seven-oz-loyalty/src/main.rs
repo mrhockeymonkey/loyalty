@@ -1,10 +1,8 @@
 use shuttle_actix_web::ShuttleActixWeb;
-use std::collections::HashMap;
 use std::fmt::{Display, Formatter};
 use std::sync::Mutex;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, Result, web::ServiceConfig};
 use actix_web::dev::ConnectionInfo;
-use actix_web::http::header::CacheDirective::NoCache;
 use actix_web::web::Redirect;
 use async_trait::async_trait;
 
@@ -16,9 +14,10 @@ use rand::{distributions::Alphanumeric, Rng};
 use log::{debug, info};
 use mongodb::{Collection, Database};
 use mongodb::{bson::{doc, Document}, options::FindOneOptions};
-use mongodb::bson::Bson;
 
 type AppData = web::Data<AppState<MongoDbStampCardRepository>>;
+
+mod pages;
 
 struct AppState<T>
 where T: StampCardTracker
@@ -138,7 +137,7 @@ impl BasicStampCard {
     fn new(user_id: UserId) -> BasicStampCard {
         BasicStampCard {
             user_id,
-            stamps: 1,
+            stamps: 0,
             capacity: 10
         }
     }
@@ -146,7 +145,7 @@ impl BasicStampCard {
     fn with_stamp(&self) -> Self {
         BasicStampCard {
             user_id: self.user_id.clone(),
-            stamps: self.stamps + 1,
+            stamps: self.stamps + 1, // todo! clamp at max 10, ignore any others
             capacity: self.capacity,
         }
     }

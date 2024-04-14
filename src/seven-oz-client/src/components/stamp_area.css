@@ -1,0 +1,15 @@
+
+div {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightslategrey;
+}
+
+p {
+    color: black;
+}

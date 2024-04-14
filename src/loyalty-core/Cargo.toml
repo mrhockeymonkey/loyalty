@@ -1,0 +1,12 @@
+[package]
+name = "loyalty-core"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-trait = "0.1.77"
+serde = { version = "1.0.197", features = ["derive"] }
+rand = "0.8.5"
+qrcode = "0.12.0"
