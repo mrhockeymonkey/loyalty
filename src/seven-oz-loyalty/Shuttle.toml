@@ -1,6 +1,0 @@
-name = "7oz-loyalty"
-assets = [
-    "seven-oz-loaylty/assets/index.html",
-    "seven-oz-loaylty/assets/seven-oz-client-fae6541e7c3d7f18.js",
-    "seven-oz-loaylty/assets/seven-oz-client-fae6541e7c3d7f18_bg.wasm"
-]
