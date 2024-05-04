@@ -39,8 +39,8 @@ impl Component for StampCard {
         let card_callback = ctx.link().callback(StampCardMsg::StampsReceived);
         get_stamp_card(card_callback, ctx.props().id.clone());
         let location = ctx.link().location().unwrap();
-        // location.path()
         let query = ctx.link().location().unwrap().query_str().to_string();
+        
         Self {
             stamp_count: 0,
             query,
@@ -98,10 +98,6 @@ impl Component for StampCard {
                                     </div>
                                 </div>
                             </div>
-                            // <div class="card-footer">
-                            //     {"hello"}
-                            //
-                            // </div>
                         </div>
                         <div class="pt-5">
                             if (self.query.clone() == REDEEM_PARAM) {

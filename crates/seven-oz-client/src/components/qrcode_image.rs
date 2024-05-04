@@ -10,7 +10,6 @@ pub struct QrCodeImageProps {
 #[function_component]
 pub fn QrCodeImage(props: &QrCodeImageProps) -> Html {
 
-    // let link = format!("{}/collect/{}", props.location, props.code);
     let qr: CustomerQrCode = String::from(props.link.as_str()).into();
     
     let image = qr

@@ -106,7 +106,6 @@ impl Component for Collect {
                                     aria-describedby="phone_number_help"
                                     ref={&self.input_ref} 
                                     placeholder="07715559999"/>
-                                // <div id="phone_number_help" class="form-text">{"We'll never share your phone number with anyone else."}</div>
                                 <div class="invalid-feedback">
                                     { "Please enter a valid UK mobile number without spaces" }
                                 </div>
