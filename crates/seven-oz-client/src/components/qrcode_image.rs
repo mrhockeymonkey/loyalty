@@ -4,15 +4,14 @@ use loyalty_core::qr_gen::CustomerQrCode;
 
 #[derive(Properties, PartialEq)]
 pub struct QrCodeImageProps {
-    pub code: AttrValue,
-    pub location: AttrValue
+    pub link: AttrValue,
 }
 
 #[function_component]
 pub fn QrCodeImage(props: &QrCodeImageProps) -> Html {
 
-    let link = format!("{}/collect/{}", props.location, props.code);
-    let qr: CustomerQrCode = String::from(link.as_str()).into();
+    // let link = format!("{}/collect/{}", props.location, props.code);
+    let qr: CustomerQrCode = String::from(props.link.as_str()).into();
     
     let image = qr
         .render()
@@ -23,7 +22,7 @@ pub fn QrCodeImage(props: &QrCodeImageProps) -> Html {
         .build();
 
     html! {
-        <a href={ link.clone() }>
+        <a href={ props.link.clone() }>
             <div>
                 { Html::from_html_unchecked(AttrValue::from(image))}
             </div>

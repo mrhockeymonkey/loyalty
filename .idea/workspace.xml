@@ -7,66 +7,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/release.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/.idea/mvp.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/templates/card.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/templates/qr.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvp/templates/stamp.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/.idea/7oz-loyalty.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/Shuttle.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/templates/card.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/templates/qr.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seven-oz-loyalty/templates/stamp.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loyalty-core/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loyalty-core/src/lib.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loyalty-core/src/qr_gen.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/components/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/components/qrcode_image.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/components/stamp_area.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/components/stamp_area.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/pages/collect.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/pages/display.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/pages/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-client/src/pages/stamp_card.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/.idea/7oz-loyalty.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/Shuttle.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/assets/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seven-oz-loyalty/src/main.rs" beforeDir="false" />
+    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="reorg and script for release">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +47,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2fggZcI2pgputXxJfhyYF16yKyX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -136,11 +87,25 @@
       <updated>1714228192409</updated>
       <workItem from="1714228194386" duration="14000" />
       <workItem from="1714228577048" duration="2220000" />
-      <workItem from="1714231213956" duration="402000" />
+      <workItem from="1714231213956" duration="5480000" />
+      <workItem from="1714830510413" duration="6136000" />
     </task>
+    <task id="LOCAL-00001" summary="reorg and script for release">
+      <option name="closed" value="true" />
+      <created>1714231902631</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714231902631</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reorg and script for release" />
+    <option name="LAST_COMMIT_MESSAGE" value="reorg and script for release" />
   </component>
 </project>

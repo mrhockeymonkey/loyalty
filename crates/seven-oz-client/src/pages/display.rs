@@ -63,7 +63,7 @@ impl Component for Display {
                                     Some(code) => html!{
                                         <div>
                                             <div>
-                                                <QrCodeImage code={ code.clone() } location={ self.location.clone() } />
+                                                <QrCodeImage link={ format!("{}/collect/{}", self.location, code) } />
                                             </div>
                                             <div>
                                                 //<a href={ format!("{}/collect/{}", self.location, code) }>{ format!("{}/collect/{}", self.location, code) }</a>
