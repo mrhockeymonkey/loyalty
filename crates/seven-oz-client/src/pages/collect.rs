@@ -1,8 +1,10 @@
 use std::rc::Rc;
+use regex::Regex;
 use reqwasm::http::Request;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen_futures::wasm_bindgen::JsValue;
 use web_sys::{console, HtmlInputElement, window};
+use web_sys::js_sys::Array;
 use yew::prelude::*;
 use yew::InputEvent;
 use yew_router::prelude::*;
@@ -46,16 +48,20 @@ impl Component for Collect {
                 if let Some(input) = self.input_ref.cast::<HtmlInputElement>() {
                     // Access the value of the input element
                     let input_value = input.value();
-                    // Use the input value as needed
-                    //println!("Input value: {}", input_value);
-
                     console::log_1(&input_value.clone().into());
 
+                    // check validity
+                    let r = Regex::new(r"^07\d{9}$").unwrap();
+                    if (!r.is_match(input_value.as_ref())){
+                        input.class_list().add_1("is-invalid");
+                        return false;
+                    }
+                    
                     let claim = Claim {
                         id:  input_value.clone(),
                         code: ctx.props().code.clone()
                     };
-
+                    
                     ctx.link().send_future(async {
                         match post_claim(claim).await {
                             Ok(md) => CollectMsg::ClaimOk(input_value),
@@ -90,7 +96,7 @@ impl Component for Collect {
                     <div class="col">
                         <h1 class="display-1 py-3">{"Collect a Stamp"}</h1>
     
-                        <div>
+                        <form novalidate=true>
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">{"Phone Number"}</label>
                                 <input type="tel"
@@ -98,13 +104,19 @@ impl Component for Collect {
                                     id="phone_number"
                                     name="phone_number"
                                     aria-describedby="phone_number_help"
-                                    pattern="[0-9]{11}"
-                                    ref={&self.input_ref}/>
-                                <div id="phone_number_help" class="form-text">{"We'll never share your phone number with anyone else."}</div>
+                                    ref={&self.input_ref} 
+                                    placeholder="07715559999"/>
+                                <div class="invalid-feedback">
+                                    { "Please enter a valid UK mobile number without spaces" }
+                                </div>
                             </div>
-    
-                            <button type="button" class="btn btn-primary" onclick={ctx.link().callback(|_| CollectMsg::Submit)}>{"Stamp"}</button>
-                        </div>
+            
+                            <button type="button"
+                                class="btn btn-primary"
+                                onclick={ctx.link().callback(|_| CollectMsg::Submit)}>
+                                {"Stamp"}
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

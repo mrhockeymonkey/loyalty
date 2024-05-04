@@ -5,15 +5,21 @@ use stylist::Style;
 use stylist::yew::use_style;
 use stylist::global_style;
 use wasm_bindgen_futures::js_sys::JsString;
-use web_sys::console;
+use web_sys::{console, window};
 use yew::{AttrValue, Callback, Component, Context, Html, html, Properties};
 use yew::platform::time::sleep;
+use yew_router::prelude::RouterScopeExt;
+use crate::components::qrcode_image::QrCodeImage;
 
 use crate::components::stamp_area::StampArea;
 use crate::get_api_base;
 
+const REDEEM_PARAM: &str = "?redeem=1";
+
 pub struct StampCard {
-    stamp_count: u32
+    stamp_count: u32,
+    query: String,
+    location: String
 }
 
 pub enum StampCardMsg {
@@ -22,7 +28,7 @@ pub enum StampCardMsg {
 
 #[derive(Properties, PartialEq)]
 pub struct StampCardProps {
-    pub id: String,
+    pub id: String
 }
 
 impl Component for StampCard {
@@ -32,8 +38,13 @@ impl Component for StampCard {
     fn create(ctx: &Context<Self>) -> Self {
         let card_callback = ctx.link().callback(StampCardMsg::StampsReceived);
         get_stamp_card(card_callback, ctx.props().id.clone());
+        let location = ctx.link().location().unwrap();
+        let query = ctx.link().location().unwrap().query_str().to_string();
+        
         Self {
-            stamp_count: 0
+            stamp_count: 0,
+            query,
+            location: location.path().to_string()
         }
     }
 
@@ -58,9 +69,9 @@ impl Component for StampCard {
                     <div class="col"></div>
                     <div class="col-10">
                         <div class="card text-bg-light">
-                            // <div class="card-header">
-                            //     { "7oz" }
-                            // </div>
+                            <div class="card-header">
+                                { "7oz" }
+                            </div>
                             <div class="card-body">
                                 <div class="row col">
                                     <div class="d-flex justify-content-between">
@@ -87,6 +98,14 @@ impl Component for StampCard {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="pt-5">
+                            if (self.query.clone() == REDEEM_PARAM) {
+                                <button type="button" class="btn btn-danger btn-lg">{ "Redeem" }</button>
+                            }
+                            else {
+                                <QrCodeImage link={ format!("{}{}", self.location, REDEEM_PARAM) } />
+                            }
                         </div>
                     </div>
                     <div class="col"></div>
