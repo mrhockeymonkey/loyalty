@@ -64,6 +64,7 @@ fn switch(routes: Route) -> Html {
 //     }
 // }
 
+// TODO is there a better way
 fn get_api_base() -> &'static str {
     if cfg!(feature = "prod") {
         return "https://7oz-loyalty.shuttleapp.rs"

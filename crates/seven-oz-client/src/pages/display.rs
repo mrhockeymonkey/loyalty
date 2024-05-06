@@ -1,14 +1,14 @@
 use std::time::Duration;
+
 use reqwasm::http::Request;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen_futures::js_sys::JsString;
 use web_sys::{console, window};
-use yew::{AttrValue, Callback, Component, Context, function_component, Html, html, use_state_eq};
+use yew::{AttrValue, Callback, Component, Context, Html, html};
 use yew::platform::time::sleep;
-use crate::{get_api_base};
 
-use crate::components::{qrcode_image};
 use crate::components::qrcode_image::QrCodeImage;
+use crate::get_api_base;
 
 #[derive(Serialize, Deserialize, PartialEq)]
 struct QrResponse {
@@ -63,7 +63,7 @@ impl Component for Display {
                                     Some(code) => html!{
                                         <div>
                                             <div>
-                                                <QrCodeImage link={ format!("{}/collect/{}", self.location, code) } />
+                                                <QrCodeImage link={ format!("{}/collect/{}", self.location, code) } dim=250 module_dim=7  />
                                             </div>
                                             <div>
                                                 //<a href={ format!("{}/collect/{}", self.location, code) }>{ format!("{}/collect/{}", self.location, code) }</a>
@@ -88,7 +88,7 @@ fn poll_code_service(code_cb: Callback<AttrValue>) {
     wasm_bindgen_futures::spawn_local(async move {
 
         let api_base = get_api_base();
-        let endpoint = format!("{}/api/qr", api_base);
+        let endpoint = format!("{}/api/customercode", api_base);
 
         loop {
             let resp = Request::get(&endpoint)

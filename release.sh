@@ -10,6 +10,5 @@ echo "Releasing to $ENV - $DIST"
 rm -f $DIST/*
 trunk build --release --features $ENV --dist $DIST $CLIENT_DIR/index.html
 
-set +e
-cargo shuttle stop --name 7oz-loyalty
-cargo shuttle deploy --allow-dirty --name 7oz-loyalty --working-directory $API_DIR
+#cargo shuttle project stop --name 7oz-loyalty
+cargo shuttle --debug deploy --allow-dirty --name 7oz-loyalty --working-directory $API_DIR

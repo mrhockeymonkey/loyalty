@@ -8,13 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="add qrcode for redeeming + phone number validation">
+      <change afterPath="$PROJECT_DIR$/Shuttle.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/Shuttle.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/release.sh" beforeDir="false" afterPath="$PROJECT_DIR$/release.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +65,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
-    "git-widget-placeholder": "redeem-qrcode",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,6 +77,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RsExternalLinterProjectSettings">
     <option name="runOnTheFly" value="true" />
   </component>

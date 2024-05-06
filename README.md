@@ -6,6 +6,7 @@ It aims to be "as secure" as the traditional paper stamp cards and does not requ
 
 At this stage this is purely for learning purposes and fun with a single business in mind initially to trial it.
 
+
 ## How it should work
 
 Collecting stamps

@@ -5,6 +5,7 @@ use stylist::Style;
 use stylist::yew::use_style;
 use stylist::global_style;
 use wasm_bindgen_futures::js_sys::JsString;
+use wasm_bindgen_futures::wasm_bindgen::JsValue;
 use web_sys::{console, window};
 use yew::{AttrValue, Callback, Component, Context, Html, html, Properties};
 use yew::platform::time::sleep;
@@ -12,7 +13,8 @@ use yew_router::prelude::RouterScopeExt;
 use crate::components::qrcode_image::QrCodeImage;
 
 use crate::components::stamp_area::StampArea;
-use crate::get_api_base;
+use crate::{get_api_base, Route};
+use crate::pages::collect::CollectMsg;
 
 const REDEEM_PARAM: &str = "?redeem=1";
 
@@ -23,7 +25,10 @@ pub struct StampCard {
 }
 
 pub enum StampCardMsg {
-    StampsReceived(u32)
+    StampsReceived(u32),
+    StampsResetRequested,
+    StampsResetOk,
+    StampsResetErr(u16)
 }
 
 #[derive(Properties, PartialEq)]
@@ -53,6 +58,30 @@ impl Component for StampCard {
             StampCardMsg::StampsReceived(count) => {
                 self.stamp_count = count;
                 true
+            },
+            StampCardMsg::StampsResetRequested => {
+                console::log_1(&JsValue::from("Reset requested"));
+                let card_id = ctx.props().id.clone();
+                ctx.link().send_future(async {
+                    match reset_stamp_card(card_id).await {
+                        Ok(()) => StampCardMsg::StampsResetOk,
+                        Err(err) => StampCardMsg::StampsResetErr(err),
+                    }
+                });
+
+                false
+            },
+            StampCardMsg::StampsResetOk => {
+                console::log_1(&JsValue::from("Reset OK"));
+                
+                // TODO replace this redirect with some live polling and refresh screen with "coffee on the way" animation
+                web_sys::window().unwrap().location().set_href(self.location.as_ref());
+                false
+            },
+            StampCardMsg::StampsResetErr(response_code) => {
+                // TODO some sort of visual feedback for error
+                console::log_1(&JsValue::from(format!("Reset Error: {}", response_code)));
+                false
             }
         }
     }
@@ -60,14 +89,14 @@ impl Component for StampCard {
     fn view(&self, ctx: &Context<Self>) -> Html {
 
         html! {
-            <div class="container text-center">
+            <div class="container-fluid text-center" style="height:100vh">
                 <div class="row col">
                     <h1 class="display-1 py-3">{ "Your Loyalty Card" }</h1>
                 </div>
 
-                <div class="row">
+                <div class="row" style="height:100vh">
                     <div class="col"></div>
-                    <div class="col-10">
+                    <div class="col-10 d-flex flex-column">
                         <div class="card text-bg-light">
                             <div class="card-header">
                                 { "7oz" }
@@ -97,14 +126,28 @@ impl Component for StampCard {
                                         <StampArea is_stamped={self.stamp_count>=9} />
                                     </div>
                                 </div>
+                                <div class="row col py-2"></div>
+                                <div class="row col">
+                                    <div class="d-flex justify-content-between">
+                                        <div style="visibility:hidden">
+                                            <StampArea is_stamped={false} />
+                                        </div>
+                                        <StampArea is_stamped={self.stamp_count>=10} />
+                                        <div style="visibility:hidden">
+                                            <StampArea is_stamped={false} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="pt-5">
+                        <div class="mt-auto" style="height:300px">
                             if (self.query.clone() == REDEEM_PARAM) {
-                                <button type="button" class="btn btn-danger btn-lg">{ "Redeem" }</button>
+                                <button type="button"
+                                    onclick={ctx.link().callback(|_| StampCardMsg::StampsResetRequested)}
+                                    class="btn btn-danger btn-lg">{ "Redeem" }</button>
                             }
                             else {
-                                <QrCodeImage link={ format!("{}{}", self.location, REDEEM_PARAM) } />
+                                <QrCodeImage link={ format!("{}{}", self.location, REDEEM_PARAM)} dim={150} module_dim={4} />
                             }
                         </div>
                     </div>
@@ -123,7 +166,7 @@ struct CardResponse {
 fn get_stamp_card(code_cb: Callback<u32>, id: String) {
     wasm_bindgen_futures::spawn_local(async move {
         let api_base = get_api_base();
-        let endpoint = format!("{}/api/card/{}", api_base, id);
+        let endpoint = format!("{}/api/stampcard/{}", api_base, id);
 
         let resp = Request::get(&endpoint)
             //.header("Access-Control-Allow-Origin", "http://localhost:8000/")
@@ -138,4 +181,18 @@ fn get_stamp_card(code_cb: Callback<u32>, id: String) {
 
         code_cb.emit(resp.stamps.into());
     });
+}
+
+async fn reset_stamp_card(id: String) -> Result<(), u16> {
+    let api_base = get_api_base();
+    let endpoint = format!("{}/api/stampcard/{}/reset", api_base, id);
+
+    let resp = Request::post(&endpoint)
+        .send()
+        .await.unwrap();
+
+    match resp.status() {
+        200 => Ok(()),
+        _ => Err(resp.status())
+    }
 }

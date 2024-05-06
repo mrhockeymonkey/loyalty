@@ -32,7 +32,7 @@ pub struct BasicStampCard {
 }
 
 impl BasicStampCard {
-    pub fn new(user_id: UserId) -> BasicStampCard {
+    pub fn new(user_id: UserId) -> Self {
         BasicStampCard {
             user_id,
             stamps: 0,
