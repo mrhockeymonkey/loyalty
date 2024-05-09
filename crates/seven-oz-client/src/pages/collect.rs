@@ -1,10 +1,10 @@
-use regex::Regex;
 use reqwasm::http::Request;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen_futures::wasm_bindgen::JsValue;
 use web_sys::{console, HtmlInputElement};
 use yew::prelude::*;
 use yew_router::prelude::*;
+use loyalty_core::PhoneNumber;
 
 use crate::{get_api_base, Route};
 
@@ -17,7 +17,7 @@ pub enum CollectMsg {
     Submit,
     Claiming,
     ClaimOk(String),
-    ClaimFail
+    ClaimFail(u16)
 }
 
 #[derive(Deserialize, Serialize)]
@@ -27,32 +27,36 @@ struct Claim {
 }
 
 pub struct Collect {
-    input_ref: NodeRef
+    input_ref: NodeRef,
+    validation_msg: AttrValue
 }
 
 impl Component for Collect {
     type Message = CollectMsg;
     type Properties = CollectProps;
 
-    fn create(ctx: &Context<Self>) -> Self {
+    fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            input_ref: NodeRef::default()
+            input_ref: NodeRef::default(),
+            validation_msg: AttrValue::from("foo")
         }
     }
 
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             CollectMsg::Submit => {
+                console::log_1(&JsValue::from("foo"));
                 if let Some(input) = self.input_ref.cast::<HtmlInputElement>() {
                     // Access the value of the input element
                     let input_value = input.value();
                     console::log_1(&input_value.clone().into());
 
                     // check validity
-                    let r = Regex::new(r"^07\d{9}$").unwrap();
-                    if (!r.is_match(input_value.as_ref())){
-                        input.class_list().add_1("is-invalid");
-                        return false;
+                    if let Err(message) = PhoneNumber::try_from(input_value.as_ref()) {
+                        console::log_1(&JsValue::from(message));
+                        self.validation_msg = AttrValue::from(message);
+                        input.class_list().add_1("is-invalid").unwrap();
+                        return true;
                     }
                     
                     let claim = Claim {
@@ -62,8 +66,8 @@ impl Component for Collect {
                     
                     ctx.link().send_future(async {
                         match post_claim(claim).await {
-                            Ok(md) => CollectMsg::ClaimOk(input_value),
-                            Err(err) => CollectMsg::ClaimFail,
+                            Ok(()) => CollectMsg::ClaimOk(input_value),
+                            Err(err) => CollectMsg::ClaimFail(err),
                         }
                     });
                     ctx.link().send_message(CollectMsg::Claiming);
@@ -80,8 +84,8 @@ impl Component for Collect {
                 navigator.push(&Route::StampCard{id});
                 false
             },
-            CollectMsg::ClaimFail => {
-                console::log_1(&JsValue::from("ClaimFail"));
+            CollectMsg::ClaimFail(err) => {
+                console::log_1(&JsValue::from(format!("ClaimFail. Status code: {}", err)));
                 false
             }
         }
@@ -105,7 +109,8 @@ impl Component for Collect {
                                     ref={&self.input_ref} 
                                     placeholder="07715559999"/>
                                 <div class="invalid-feedback">
-                                    { "Please enter a valid UK mobile number without spaces" }
+                                    <div>{ "Please enter a valid UK mobile number" }</div>
+                                    <div>{ self.validation_msg.clone() }</div>
                                 </div>
                             </div>
             

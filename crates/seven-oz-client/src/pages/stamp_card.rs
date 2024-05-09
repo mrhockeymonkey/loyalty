@@ -1,20 +1,14 @@
-use std::time::Duration;
 use reqwasm::http::Request;
 use serde::{Deserialize, Serialize};
-use stylist::Style;
-use stylist::yew::use_style;
-use stylist::global_style;
 use wasm_bindgen_futures::js_sys::JsString;
 use wasm_bindgen_futures::wasm_bindgen::JsValue;
-use web_sys::{console, window};
-use yew::{AttrValue, Callback, Component, Context, Html, html, Properties};
-use yew::platform::time::sleep;
+use web_sys::console;
+use yew::{Callback, Component, Context, Html, html, Properties};
 use yew_router::prelude::RouterScopeExt;
-use crate::components::qrcode_image::QrCodeImage;
 
+use crate::components::qrcode_image::QrCodeImage;
 use crate::components::stamp_area::StampArea;
-use crate::{get_api_base, Route};
-use crate::pages::collect::CollectMsg;
+use crate::get_api_base;
 
 const REDEEM_PARAM: &str = "?redeem=1";
 
@@ -75,7 +69,7 @@ impl Component for StampCard {
                 console::log_1(&JsValue::from("Reset OK"));
                 
                 // TODO replace this redirect with some live polling and refresh screen with "coffee on the way" animation
-                web_sys::window().unwrap().location().set_href(self.location.as_ref());
+                web_sys::window().unwrap().location().set_href(self.location.as_ref()).unwrap();
                 false
             },
             StampCardMsg::StampsResetErr(response_code) => {
@@ -141,7 +135,7 @@ impl Component for StampCard {
                             </div>
                         </div>
                         <div class="mt-auto" style="height:300px">
-                            if (self.query.clone() == REDEEM_PARAM) {
+                            if self.query.clone() == REDEEM_PARAM {
                                 <button type="button"
                                     onclick={ctx.link().callback(|_| StampCardMsg::StampsResetRequested)}
                                     class="btn btn-danger btn-lg">{ "Redeem" }</button>
@@ -172,7 +166,7 @@ fn get_stamp_card(code_cb: Callback<u32>, id: String) {
             //.header("Access-Control-Allow-Origin", "http://localhost:8000/")
             .send()
             .await.unwrap()
-            .json::<crate::pages::stamp_card::CardResponse>()
+            .json::<CardResponse>()
             .await.unwrap();
 
         console::log_1(&JsString::from(

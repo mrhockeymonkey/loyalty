@@ -1,11 +1,38 @@
+use std::cmp::min;
+
 use actix_web::{HttpResponse, web};
-use log::info;
 use mongodb::bson::doc;
-use mongodb::Collection;
-use serde::Serialize;
-use thiserror::Error;
-use loyalty_core::{BasicStampCard, UserId};
-use crate::{AppData};
+use serde::{Deserialize, Serialize};
+
+use loyalty_core::UserId;
+
+use crate::AppData;
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct BasicStampCard {
+    user_id: UserId,
+    pub stamps: u32, // TODO should not be public
+    capacity: u32,
+}
+
+impl BasicStampCard {
+    pub fn new(user_id: UserId) -> Self {
+        BasicStampCard {
+            user_id,
+            stamps: 0,
+            capacity: 10
+        }
+    }
+
+    pub fn with_stamp(&self) -> Self {
+        BasicStampCard {
+            user_id: self.user_id.clone(),
+            stamps: min(self.stamps + 1, 10),
+            capacity: self.capacity,
+        }
+    }
+}
+
 
 #[derive(Serialize)]
 struct CardResponse {

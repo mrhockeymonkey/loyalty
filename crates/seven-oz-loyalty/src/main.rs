@@ -1,27 +1,16 @@
-use shuttle_actix_web::ShuttleActixWeb;
-use std::fmt::{Display, Formatter};
-use std::{env, io};
-use std::sync::atomic::spin_loop_hint;
-use std::sync::{Mutex, MutexGuard};
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, web::ServiceConfig, Scope, HttpRequest};
-use actix_web::cookie::time::macros::date;
-use actix_web::dev::{ConnectionInfo, fn_service, ServiceRequest, ServiceResponse};
-use actix_web::web::{get, post, Redirect, resource};
-use actix_files::{Files, NamedFile};
-//use actix_web::error::UrlencodedError::ContentType;
-// use async_trait::async_trait;
-use actix_web::http::header::ContentType;
-// use qrcode::render::svg;
-// use qrcode::{EcLevel, QrCode, Version};
-use serde::{Deserialize, Serialize};
-// use rand::{distributions::Alphanumeric, Rng};
-use log::{debug, info, warn};
-use mongodb::{Collection, Database};
-use mongodb::{bson::{doc, Document}, options::FindOneOptions};
-use thiserror::Error;
-use loyalty_core::{StampCardTracker, BasicStampCard, UserId, qr_gen};
-use loyalty_core::qr_gen::CustomerQrCode;
+use std::fmt::Display;
+use std::sync::Mutex;
+
 use actix_cors::Cors;
+use actix_files::NamedFile;
+use actix_web::{ Scope, web, web::ServiceConfig};
+use actix_web::dev::{fn_service, ServiceRequest, ServiceResponse};
+use actix_web::web::{get, post, resource};
+use mongodb::Database;
+use shuttle_actix_web::ShuttleActixWeb;
+
+use loyalty_core::qr_gen::CustomerQrCode;
+use crate::stampcard::BasicStampCard;
 
 mod stampcard;
 mod customer_code;

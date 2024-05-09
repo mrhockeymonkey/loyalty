@@ -7,20 +7,24 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="add qrcode for redeeming + phone number validation">
-      <change afterPath="$PROJECT_DIR$/Shuttle.toml" afterDir="false" />
+    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="implement redeem api and refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/components/qrcode_image.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/loyalty-core/src/qr_gen.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/loyalty-core/src/qr_gen.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/card.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/qr.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/stamp.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/Shuttle.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/db.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/db.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release.sh" beforeDir="false" afterPath="$PROJECT_DIR$/release.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/stampcard.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/stampcard.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +52,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -65,7 +72,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "#3 on redeem-impl",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,6 +107,7 @@
       <workItem from="1714228577048" duration="2220000" />
       <workItem from="1714231213956" duration="5480000" />
       <workItem from="1714830510413" duration="6691000" />
+      <workItem from="1715280088716" duration="5781000" />
     </task>
     <task id="LOCAL-00001" summary="reorg and script for release">
       <option name="closed" value="true" />
@@ -117,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714837218093</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="implement redeem api and refactor">
+      <option name="closed" value="true" />
+      <created>1715017765335</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715017765335</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +142,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="reorg and script for release" />
     <MESSAGE value="add qrcode for redeeming + phone number validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="add qrcode for redeeming + phone number validation" />
+    <MESSAGE value="implement redeem api and refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement redeem api and refactor" />
   </component>
 </project>

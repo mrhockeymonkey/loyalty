@@ -37,7 +37,7 @@ impl Component for Display {
         }
     }
 
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             DisplayMsg::CodeReceived(new_code) => {
                 if self.code.as_deref().unwrap_or("") == new_code {
@@ -51,7 +51,7 @@ impl Component for Display {
         }
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <>
             <div class="container text-center">

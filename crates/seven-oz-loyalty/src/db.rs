@@ -2,7 +2,8 @@ use log::info;
 use mongodb::bson::doc;
 use mongodb::Collection;
 use thiserror::Error;
-use loyalty_core::{BasicStampCard, UserId};
+use loyalty_core::{UserId};
+use crate::stampcard::BasicStampCard;
 
 pub struct MongoDbStampCardRepository {
     pub collection: Collection<BasicStampCard> // TODO should this be public?

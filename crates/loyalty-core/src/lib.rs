@@ -1,22 +1,38 @@
-pub mod qr_gen;
-
 use std::cmp::min;
 use std::fmt::{Display, Formatter};
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
+pub mod qr_gen;
 
-#[async_trait]
-pub trait StampCardTracker {
-    async fn get_or_create_card(&mut self, card_id: &UserId) -> Result<BasicStampCard, String>;
-    async fn stamp_card(&mut self, card_id: &UserId) -> Result<BasicStampCard, String>;
-}
-
-pub trait StampCard {
-    fn add_stamp(&self); // result?
-}
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Serialize, Deserialize)]
 pub struct UserId(pub String);
+
+pub struct PhoneNumber {
+    number: [u32;11]
+}
+
+impl TryFrom<&str> for PhoneNumber {
+    type Error = &'static str;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let num: Vec<u32> = value.chars()
+            .map(|c| c.to_digit(10))
+            .filter_map(|x| x)
+            .collect();
+        
+        match num.as_slice() {
+            num if num.len() != 11 => Err("Number must be 11 digits"),
+            [first, ..] if first != &0 => Err("First digit must be 0"),
+            [_, second, ..] if second != &7 => Err("Second digit must be 7"),
+            num => { 
+                let mut number = [0u32;11];
+                number.copy_from_slice(num);
+                Ok(PhoneNumber { number }) 
+            }
+        }
+    }
+}
 
 impl Display for UserId {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -24,38 +40,3 @@ impl Display for UserId {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct BasicStampCard {
-    user_id: UserId,
-    pub stamps: u32, // TODO should not be public
-    capacity: u32,
-}
-
-impl BasicStampCard {
-    pub fn new(user_id: UserId) -> Self {
-        BasicStampCard {
-            user_id,
-            stamps: 0,
-            capacity: 10
-        }
-    }
-
-    pub fn with_stamp(&self) -> Self {
-        BasicStampCard {
-            user_id: self.user_id.clone(),
-            stamps: min(self.stamps + 1, 10),
-            capacity: self.capacity,
-        }
-    }
-}
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-// 
-//     #[test]
-//     fn it_works() {
-//         let result = add(2, 2);
-//         assert_eq!(result, 4);
-//     }
-// }
