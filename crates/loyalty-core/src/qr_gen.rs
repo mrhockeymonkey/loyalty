@@ -3,7 +3,6 @@ use qrcode::render::Renderer;
 pub use qrcode::render::svg::Color;
 use rand::distributions::Alphanumeric;
 use rand::Rng;
-use crate::qr_gen;
 
 pub fn rand_string(length: usize) -> String {
     rand::thread_rng()

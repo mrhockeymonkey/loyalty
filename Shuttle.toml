@@ -1,4 +1,4 @@
 name = "7oz-loyalty"
 assets = [
-    "crates/seven-oz-loaylty/assets/*"
+    "crates/seven-oz-loyalty/assets/*"
 ] # shuttle seems to have the context of the workspace root

@@ -1,13 +1,11 @@
-use std::rc::Rc;
-use regex::Regex;
 use reqwasm::http::Request;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen_futures::wasm_bindgen::JsValue;
-use web_sys::{console, HtmlInputElement, window};
-use web_sys::js_sys::Array;
+use web_sys::{console, HtmlInputElement};
 use yew::prelude::*;
-use yew::InputEvent;
 use yew_router::prelude::*;
+use loyalty_core::PhoneNumber;
+
 use crate::{get_api_base, Route};
 
 #[derive(Properties, PartialEq)]
@@ -19,7 +17,7 @@ pub enum CollectMsg {
     Submit,
     Claiming,
     ClaimOk(String),
-    ClaimFail
+    ClaimFail(u16)
 }
 
 #[derive(Deserialize, Serialize)]
@@ -29,32 +27,36 @@ struct Claim {
 }
 
 pub struct Collect {
-    input_ref: NodeRef
+    input_ref: NodeRef,
+    validation_msg: AttrValue
 }
 
 impl Component for Collect {
     type Message = CollectMsg;
     type Properties = CollectProps;
 
-    fn create(ctx: &Context<Self>) -> Self {
+    fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            input_ref: NodeRef::default()
+            input_ref: NodeRef::default(),
+            validation_msg: AttrValue::from("foo")
         }
     }
 
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             CollectMsg::Submit => {
+                console::log_1(&JsValue::from("foo"));
                 if let Some(input) = self.input_ref.cast::<HtmlInputElement>() {
                     // Access the value of the input element
                     let input_value = input.value();
                     console::log_1(&input_value.clone().into());
 
                     // check validity
-                    let r = Regex::new(r"^07\d{9}$").unwrap();
-                    if (!r.is_match(input_value.as_ref())){
-                        input.class_list().add_1("is-invalid");
-                        return false;
+                    if let Err(message) = PhoneNumber::try_from(input_value.as_ref()) {
+                        console::log_1(&JsValue::from(message));
+                        self.validation_msg = AttrValue::from(message);
+                        input.class_list().add_1("is-invalid").unwrap();
+                        return true;
                     }
                     
                     let claim = Claim {
@@ -64,8 +66,8 @@ impl Component for Collect {
                     
                     ctx.link().send_future(async {
                         match post_claim(claim).await {
-                            Ok(md) => CollectMsg::ClaimOk(input_value),
-                            Err(err) => CollectMsg::ClaimFail,
+                            Ok(()) => CollectMsg::ClaimOk(input_value),
+                            Err(err) => CollectMsg::ClaimFail(err),
                         }
                     });
                     ctx.link().send_message(CollectMsg::Claiming);
@@ -82,8 +84,8 @@ impl Component for Collect {
                 navigator.push(&Route::StampCard{id});
                 false
             },
-            CollectMsg::ClaimFail => {
-                console::log_1(&JsValue::from("ClaimFail"));
+            CollectMsg::ClaimFail(err) => {
+                console::log_1(&JsValue::from(format!("ClaimFail. Status code: {}", err)));
                 false
             }
         }
@@ -107,7 +109,8 @@ impl Component for Collect {
                                     ref={&self.input_ref} 
                                     placeholder="07715559999"/>
                                 <div class="invalid-feedback">
-                                    { "Please enter a valid UK mobile number without spaces" }
+                                    <div>{ "Please enter a valid UK mobile number" }</div>
+                                    <div>{ self.validation_msg.clone() }</div>
                                 </div>
                             </div>
             
@@ -124,14 +127,10 @@ impl Component for Collect {
     }
 }
 
-
-
-
-
 async fn post_claim(claim: Claim) -> Result<(), u16> {
     let json = serde_json::to_string(&claim).unwrap();
     let api_base = get_api_base();
-    let endpoint = format!("{}/api/claim", api_base);
+    let endpoint = format!("{}/api/customercode/claim", api_base);
     let resp = Request::post(&endpoint)
         .body(json)
         .header("Content-Type", "application/json")
@@ -142,94 +141,3 @@ async fn post_claim(claim: Claim) -> Result<(), u16> {
         _ => Err(resp.status())
     }
 }
-// 
-// #[function_component(Collect1)]
-// pub fn collect(props: &CollectProps) -> Html {
-//     let api_base = "http://localhost:8000";
-//     let collect_endpoint = format!("{}/api/qr", api_base);
-//     //let input_ref = use_mut_ref(|| NodeRef::default());
-//     let node_ref = NodeRef::default();
-//     let node_refc = node_ref.clone();
-//     let button_click2 = {
-//         //let input_ref = Rc::clone(&node_ref);
-//         Callback::from(move |me: MouseEvent| {
-//             // Get the raw DOM element from the ref
-//             if let Some(input) = &node_refc.cast::<HtmlInputElement>() {
-//                 // Access the value of the input element
-//                 let input_value = input.value();
-//                 // Use the input value as needed
-//                 //println!("Input value: {}", input_value);
-// 
-//                 web_sys::console::log_1(&input_value.clone().into());
-// 
-//                 let body_json = serde_json::to_string(&Claim {
-//                     id: input_value,
-//                     code: props.code.clone()
-//                 }).unwrap();
-// 
-//                 wasm_bindgen_futures::spawn_local(async move {
-//                     let result = Request::post(&collect_endpoint).body(body_json).send().await.unwrap();
-//                 });
-// 
-// 
-//             }
-//         })
-//     };
-// 
-// 
-// 
-// 
-//     let input_value= use_state(|| String::new());
-// 
-//     let input_change = {
-//         let input_value_c = input_value.clone();
-//         Callback::from(move |e: InputEvent| {
-//             let d = e.data().unwrap();
-//             let dd = d.clone();
-//             web_sys::console::log_1(&d.into());
-//             input_value_c.set(dd);
-//         })
-//     };
-//     let foo = "foo";
-//     //let user_phone = use_state_eq(|| "".to_string());
-//     //let user_phone_clone = user_phone.clone();  // TODO
-//     //let oninput = Callback::from(move |e: InputEvent| user_phone_clone.set(e.data().unwrap()));
-//     // let onclick = Callback::from(move |_| {
-//     //     let iii = input_value.clone();
-//     //     let greeting = ;
-//     //     web_sys::console::log_1(&greeting.into());
-//     // });
-// 
-//     // let button_click = {
-//     //     let input_value = input_value.clone();
-//     //     Callback::from(move |_| {
-//     //         // Handle button click event
-//     //         // You can access the value of the input field from input_value
-//     //         dbg!(input_value);
-//     //         //web_sys::console::log_1(&input_value.into());
-//     //     })
-//     // };
-//     
-//     html! {
-//         <div class="container text-center">
-//             <div class="row">
-//                 <div class="col">
-//                     <h1>{"Stamp Your Digital Card"}</h1>
-//                     <h3>{&props.code}</h3>
-//         
-//                     <div>
-//                         <div class="mb-3">
-//                             <label for="phone_number" class="form-label">{"Phone Number"}</label>
-//                             <input type="tel" class="form-control" id="phone_number" name="phone_number" aria-describedby="phone_number_help" pattern="[0-9]{11}"
-//                                 ref={node_ref.clone()}
-//                                 oninput={input_change}/>
-//                             <div id="phone_number_help" class="form-text">{"We'll never share your phone number with anyone else."}</div>
-//                         </div>
-// 
-//                         <button type="button" class="btn btn-primary" onclick={button_click2}>{"Stamp"}</button>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     }
-// }

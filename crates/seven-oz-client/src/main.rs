@@ -1,11 +1,8 @@
 use yew::prelude::*;
-use web_sys::{ Window, window, console};
-use reqwasm::http::Request;
-use serde::{Deserialize, Serialize};
-use stylist::{css, Style};
+use stylist::{css};
 use stylist::yew::Global;
-use web_sys::js_sys::JsString;
 use yew_router::prelude::*;
+
 use crate::pages::collect::Collect;
 use crate::pages::display::Display;
 use crate::pages::stamp_card::StampCard;
@@ -41,35 +38,12 @@ fn switch(routes: Route) -> Html {
     }
 }
 
-// #[function_component(Secure)]
-// fn secure() -> Html {
-//     let navigator = use_navigator().unwrap();
-// 
-//     let onclick = Callback::from(move |_| navigator.push(&Route::Home));
-//     html! {
-//         <div>
-//             <h1>{ "Secure" }</h1>
-//             <button {onclick}>{ "Go Home" }</button>
-//         </div>
-//     }
-// }
-
-// #[function_component(App)]
-// fn app() -> Html {
-//     html! {
-//         <>
-//             <Global css={css!("background-color: red;")} />
-//             <div>{"Hello World!"}</div>
-//         </>
-//     }
-// }
-
+// TODO is there a better way
 fn get_api_base() -> &'static str {
-    if cfg!(feature = "prod") {
-        return "https://7oz-loyalty.shuttleapp.rs"
-    }
-    else {
-        return "http://localhost:8000"
+    return if cfg!(feature = "prod") {
+        "https://7oz-loyalty.shuttleapp.rs"
+    } else {
+        "http://localhost:8000"
     };
 }
 
