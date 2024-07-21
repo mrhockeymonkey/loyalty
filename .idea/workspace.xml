@@ -7,24 +7,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="implement redeem api and refactor">
+    <list default="true" id="8ee3ae80-4441-44b0-ad06-d4d3bddcec86" name="Changes" comment="wip">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/loyalty-core/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/loyalty-core/src/qr_gen.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/loyalty-core/src/qr_gen.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/card.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/qr.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/mvp/templates/stamp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/collect.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/display.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-client/src/pages/stamp_card.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/db.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/db.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/stampcard.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/stampcard.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/customer_code.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/seven-oz-loyalty/src/customer_code.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,23 +54,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.rust.reset.selective.auto.import": "true",
-    "git-widget-placeholder": "#3 on redeem-impl",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
-    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "settings.editor.selected.configurable": "language.rust.cargo.check",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/scott/code/rusty-things/src/basics&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.cargo.check&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -108,6 +96,10 @@
       <workItem from="1714231213956" duration="5480000" />
       <workItem from="1714830510413" duration="6691000" />
       <workItem from="1715280088716" duration="5781000" />
+      <workItem from="1715367937495" duration="738000" />
+      <workItem from="1716492138063" duration="5500000" />
+      <workItem from="1718052081251" duration="15000" />
+      <workItem from="1718552848709" duration="613000" />
     </task>
     <task id="LOCAL-00001" summary="reorg and script for release">
       <option name="closed" value="true" />

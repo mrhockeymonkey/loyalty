@@ -19,7 +19,10 @@ pub struct ClaimRequest {
 
 pub async fn get_code(data: AppData, conn: ConnectionInfo) -> HttpResponse {
     info!("getting QR");
-    let mut current_qr = data.qr.lock().unwrap(); // TODO result?
+    
+    let Ok(mut current_qr) = data.qr.lock() 
+        else {return HttpResponse::InternalServerError().finish()};
+    
     match &*current_qr {
         Some(qrcode) => {
             if qrcode.is_used() {

@@ -38,7 +38,8 @@ fn switch(routes: Route) -> Html {
     }
 }
 
-// TODO is there a better way
+// because this is a WASM app we cannot read environment variables at runtime 
+// which forces us to configure based on compile time flags.
 fn get_api_base() -> &'static str {
     return if cfg!(feature = "prod") {
         "https://7oz-loyalty.shuttleapp.rs"

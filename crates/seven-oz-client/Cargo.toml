@@ -21,4 +21,4 @@ wasm-bindgen-futures = "0.4.42"
 reqwasm = "0.5.0"
 serde_json = "1.0.114"
 serde = { version = "1.0.197", features = ["derive"] }
-stylist = {version = "0.13.0", features = ["yew", "parser", "yew_use_style"]}
+stylist = { version = "0.13.0", features = ["yew", "parser", "yew_use_style"]}
